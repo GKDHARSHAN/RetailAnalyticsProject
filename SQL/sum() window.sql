@@ -1,0 +1,2 @@
+with cte as(select year(order_date) as year, month (order_date) as month, sum(total_amount) as monthly_revenue from orders where order_status!= 'Cancelled' group by year(order_date), month(order_date) order by year, month)
+select year, month, monthly_revenue, sum(monthly_revenue) over (order by year, month) as cumulative_revenue from cte;
